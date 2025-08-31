@@ -1,9 +1,7 @@
-numpy
-pandas
-scipy
-matplotlib
-streamlit
-pandas-profiling
-streamlit-pandas-profiling
-openpyxl
-xlrd
+streamlit 
+pandas 
+ydata-profiling 
+matplotlib 
+seaborn 
+plotly 
+openpyxl 

@@ -1,7 +1,5 @@
 import streamlit as st 
 import pandas as pd 
-from ydata_profiling import ProfileReport
-from streamlit_ydata_profiling import st_profile_report
 import sys
 import os
 
@@ -69,24 +67,10 @@ if uploaded_file is not None:
             st.write(f"**Dataset chargé:** {uploaded_file.name}")
             st.write(f"**Dimensions:** {df.shape[0]} lignes × {df.shape[1]} colonnes")
             
-            # Génération du rapport
+            # Génération du rapport (version simplifiée)
             with st.spinner('Generating Report...'):
                 try:
-                    # Configuration simplifiée pour éviter les erreurs de validation
-                    pr = ProfileReport(
-                        df,
-                        title="Data Profiling Report",
-                        minimal=config_minimal,
-                        explorative=config_explorative
-                    )
-                    
-                    st_profile_report(pr)
-                    
-                except Exception as e:
-                    st.error(f"Erreur lors de la génération du rapport: {str(e)}")
-                    st.info("Essayez avec le mode 'Minimal' si vous rencontrez des problèmes.")
-                    
-                    # Fallback: affichage basique des données
+                    # Affichage basique des données sans les bibliothèques problématiques
                     st.subheader("Aperçu des données")
                     st.dataframe(df.head(10))
                     
@@ -101,6 +85,9 @@ if uploaded_file is not None:
                     
                     st.subheader("Statistiques descriptives")
                     st.dataframe(df.describe())
+                    
+                except Exception as e:
+                    st.error(f"Erreur lors de la génération du rapport: {str(e)}")
                     
         else:
             st.error(f'Maximum allowed filesize is 10 MB. But received {filesize:.2f} MB')
